@@ -68,6 +68,9 @@ SAT-SOLVER/
 │       │
 │       └── js/
 │           └── scripts.js
+│
+└── docs/
+    └── SAT_Solver_Project_Report.pdf
 ```
 
 ---
@@ -87,12 +90,9 @@ SAT-SOLVER/
 
 # Installation and Setup
 
-## 1. Clone the Repository
+## 1. Extract the Project Folder
 
-```bash
-git clone <repository-url>
-cd SAT-SOLVER
-```
+Download and extract the SAT-SOLVER project folder.
 
 ---
 
@@ -204,9 +204,11 @@ UNSATISFIABLE
 
 # Report Navigation
 
-Project report:
+Project report location:
 
-`SAT_Solver_Project_Report.pdf`
+```text
+docs/SAT_Solver_Project_Report.pdf
+```
 
 Open the report to view:
 
