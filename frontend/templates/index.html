@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SAT Solver · Discrete Mathematics</title>
+  <meta name="description" content="Interactive brute-force SAT solver for propositional logic with truth tables." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="bg-aurora" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">∧∨¬</div>
+      <div>
+        <h1>SAT Solver</h1>
+        <p class="subtitle">Propositional logic · Discrete Mathematics</p>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#solver">Solver</a>
+      <a href="#table">Truth Table</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- HERO / INPUT -->
+    <section id="solver" class="glass card hero">
+      <div class="hero-head">
+        <span class="chip">Brute-force SAT engine</span>
+        <h2>Solve any propositional formula</h2>
+        <p class="muted">Type a formula and watch every truth assignment evaluated until a satisfying one is found.</p>
+      </div>
+
+      <div class="formula-row">
+        <div class="formula-wrap">
+          <input id="formula" class="formula-input" spellcheck="false"
+                 placeholder="(P ∨ Q) ∧ (¬P ∨ R) ∧ (¬Q ∨ ¬R)" />
+          <div class="formula-glow"></div>
+        </div>
+        <div class="actions">
+          <button id="solve-btn" class="btn btn-primary">
+            <span class="btn-label">Solve</span>
+            <span class="spinner" hidden></span>
+          </button>
+          <button id="clear-btn" class="btn btn-ghost">Clear</button>
+        </div>
+      </div>
+
+      <div class="op-bar" id="op-bar">
+        <button data-insert="∧" title="AND (&)">∧</button>
+        <button data-insert="∨" title="OR (|)">∨</button>
+        <button data-insert="¬" title="NOT (!)">¬</button>
+        <button data-insert="→" title="Implication (->)">→</button>
+        <button data-insert="↔" title="Biconditional (<->)">↔</button>
+        <button data-insert="(">(</button>
+        <button data-insert=")">)</button>
+      </div>
+
+      <div class="examples">
+        <span class="muted small">Try a rule of inference:</span>
+        <button class="example" data-formula="((P → Q) ∧ P) → Q" title="If P→Q and P, then Q">📌 Modus Ponens</button>
+        <button class="example" data-formula="((P → Q) ∧ ¬Q) → ¬P" title="If P→Q and ¬Q, then ¬P">📌 Modus Tollens</button>
+        <button class="example" data-formula="((P → Q) ∧ (Q → R)) → (P → R)" title="Chain of implications">📌 Hypothetical Syllogism</button>
+        <button class="example" data-formula="((P ∨ Q) ∧ ¬P) → Q" title="If one is false, the other must be true">📌 Disjunctive Syllogism</button>
+        <button class="example" data-formula="P → (P ∨ Q)" title="If P is true, you can add OR Q">📌 Addition</button>
+        <button class="example" data-formula="(P ∧ Q) → P" title="From AND, extract one part">📌 Simplification</button>
+        <button class="example" data-formula="(P ∧ Q) → (P ∧ Q)" title="Combine two true statements">📌 Conjunction</button>
+        <button class="example" data-formula="((P ∨ Q) ∧ (¬P ∨ R)) → (Q ∨ R)" title="Eliminates a variable using contradiction">📌 Resolution</button>
+      </div>
+
+      <div id="error" class="error" hidden></div>
+    </section>
+
+    <!-- RESULT -->
+    <section id="result-section" class="glass card result" hidden>
+      <div class="result-head">
+        <div id="verdict" class="verdict">—</div>
+        <div class="result-meta">
+          <span id="meta-method"></span>
+          <span id="meta-time"></span>
+          <span id="meta-checked"></span>
+        </div>
+      </div>
+
+      <div class="model" id="model"></div>
+
+      <details class="trace-wrap" open>
+        <summary>Step-by-step trace</summary>
+        <div id="trace" class="trace"></div>
+      </details>
+
+      <div class="result-actions">
+        <button id="copy-result" class="btn btn-ghost">Copy result</button>
+      </div>
+    </section>
+
+    <!-- TRUTH TABLE -->
+    <section id="table" class="glass card" hidden>
+      <div class="card-head">
+        <h3>Truth table</h3>
+        <button id="export-table" class="btn btn-ghost small">Export CSV</button>
+      </div>
+      <div id="truth-table" class="table-wrap"></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="glass card">
+      <div class="card-head">
+        <h3>History</h3>
+        <button id="clear-history" class="btn btn-ghost small">Clear</button>
+      </div>
+      <ul id="history" class="history"></ul>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
