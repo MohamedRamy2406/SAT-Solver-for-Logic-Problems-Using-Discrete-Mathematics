@@ -204,11 +204,7 @@ UNSATISFIABLE
 
 # Report Navigation
 
-Project report location:
-
-```text
-docs/SAT_Solver_Project_Report.pdf
-```
+[📄 Read the Full SAT Solver Project Report (PDF)](./docs/SAT_Solver_Project_Report.pdf)
 
 Open the report to view:
 
